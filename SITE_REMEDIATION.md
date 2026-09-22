@@ -1,5 +1,14 @@
 # kineworld.com 上线修复清单（需要你的凭据，Agent 无法直接执行）
 
+> **状态更新，2026-09-22 实测。** 下面的诊断基于当时的环境，之后 DNS 已经换过：
+> `kineworld.com` 现在由注册商自己的域名服务器解析（`dns17/dns18.hichina.com`，阿里云），
+> 不再是 Cloudflare；区域里有邮件记录（MX + SPF），但**没有任何网页记录**——
+> 根域查 `A`/`AAAA` 返回 NODATA，`www` 返回 NXDOMAIN。
+> 内容本身还在线上：`kineworld-web.oss-cn-hongkong.aliyuncs.com/index.html` 返回 200，
+> 字节数与本仓库的 `index.html` 一致。
+> 因此下面的「修复 1」不能照做：要做的是在阿里云 DNS 控制台**重建网页记录**，
+> 不是加 Cloudflare 规则。修复 2（补齐 OSS 同步缺口）仍然适用。
+
 > 诊断时间：2026-09-01。以下两步都需要你自己的账号权限（Cloudflare / 阿里云 OSS），
 > Agent 没有这些凭据，只能定位问题并给出可执行命令。请在你本机或 CI 中执行。
 
@@ -15,7 +24,7 @@
 | `https://www.kineworld.com/exp002.html` | **404** | 同上，OSS 未上传 |
 | `https://www.kineworld.com/data/exp002.json` | **404** | 同上，OSS 未上传 |
 
-本地 `zoahdev/kineworld-site` 仓库里这些文件都存在（已确认），所以问题只是**没上传 / 根域没路由**，不是内容缺失。
+本地 `kineworld/kineworld-site` 仓库里这些文件都存在（已确认），所以问题只是**没上传 / 根域没路由**，不是内容缺失。
 
 ## 修复 1：根域 404（Cloudflare）
 
@@ -46,4 +55,4 @@ done
 
 ## 不需要改的代码
 
-`zoahdev/kineworld-site` 仓库内容本身是对的；本次无需改 HTML，只需**上传 + 根域路由**。
+`kineworld/kineworld-site` 仓库内容本身是对的；本次无需改 HTML，只需**上传 + 域名记录**。

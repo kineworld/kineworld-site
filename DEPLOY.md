@@ -1,6 +1,8 @@
 # Deploy kineworld.com
 
-GitHub `zoahdev/kineworld-site` is source of truth. The live domain is on Aliyun OSS.
+GitHub `kineworld/kineworld-site` is source of truth. It is published to the Aliyun OSS
+bucket `kineworld-web` (Hong Kong); `kineworld.com` currently has no DNS web record, so the
+bucket's own hostname is the only way to reach the files. See `SITE_REMEDIATION.md`.
 Until this folder is synced, `/vs-baize.html` and `/exp002.html` exist only on GitHub.
 
 ```
