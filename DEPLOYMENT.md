@@ -25,3 +25,7 @@ Do not sync this build to the old Aliyun bucket or change DNS based on the old d
 Keep the previous complete `dist/` release. With versioned object prefixes or a hosting release system, switch the origin back to the previous release. Purge HTML and stable asset paths after a rollback; avoid replacing individual files in place.
 
 No production DNS, hosting or certificate change is included in this delivery.
+
+## Public interim host
+
+With the user's later explicit request to publish, an interim GitHub Pages root site may be used while Tencent Cloud and DNS access remain unavailable. Build with `PUBLIC_SITE_URL=https://kineworld.github.io npm run build` so canonical and sitemap URLs describe that host. The generated `.nojekyll` file must be included. This interim host is separate from the requested `kineworld.com` production domain; the latter still requires verified DNS, TLS and filing details.

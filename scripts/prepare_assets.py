@@ -33,3 +33,10 @@ for background, name in [((5, 7, 11, 255), 'logo-on-black.png'), ((255, 255, 255
 portal = Image.open(root / 'portal-original.png').convert('RGB')
 portal.save(root / 'portal-hero.webp', 'WEBP', quality=84, method=6)
 portal.resize((1200, 673), resample).save(root / 'og-cover.jpg', 'JPEG', quality=84, optimize=True)
+for source, target in [
+    ('world-spatial-original.png', 'world-spatial.webp'),
+    ('world-action-original.png', 'world-action.webp'),
+    ('world-landscape-original.png', 'world-landscape.webp'),
+    ('portal-variant-original.png', 'portal-variant.webp'),
+]:
+    Image.open(root / source).convert('RGB').save(root / target, 'WEBP', quality=84, method=6)

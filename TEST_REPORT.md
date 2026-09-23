@@ -12,6 +12,7 @@ Date: 2026-09-23 (Asia/Shanghai). Environment: local Windows, Node.js 24, Chrome
 - Mobile menu opened by button and closed with Escape. Navigation and hero remained visible with JavaScript disabled. Reduced-motion setting disabled hero animation.
 - No horizontal overflow at widths 375, 390, 430, 768, 1024, 1280 or 1440 in the checked pages.
 - Seven full-page screenshots captured from real Chrome. Desktop and phone home screenshots were visually opened; the phone portal crop and desktop heading were corrected, then screenshots were regenerated. Research, projects, about and contact screenshot viewports were also visually opened; research heading size was corrected and recaptured.
+- After user visual feedback, the hero was changed to a world-model landscape and three additional conceptual backgrounds were integrated into research, projects and brand sections. Desktop and mobile screenshots were recaptured and inspected again.
 
 ## Limits
 

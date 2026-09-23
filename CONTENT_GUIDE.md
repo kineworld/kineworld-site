@@ -7,6 +7,7 @@
 - Research pillars and path: `src/data/research.ts`.
 - Projects, status, limitations, source and upstream attribution: `src/data/projects.ts`.
 - Bilingual update entries and linked source: `src/data/updates.ts`.
+- Hero and section backgrounds: `public/assets/world-*.webp` and `portal-variant.webp`; source PNGs are beside them. These are conceptual visuals, not research evidence.
 
 Each project must identify whether it is first-party work or an adaptation. A fork may describe the KineWorld engineering change, but may not imply ownership of an upstream model or claim new performance without evidence. Keep research direction, prototype, tested implementation and external validation distinct. Cite the exact repository document, release or report that supports each factual statement.
 

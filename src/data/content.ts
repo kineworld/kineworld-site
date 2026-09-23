@@ -1,6 +1,6 @@
 export const content = {
  zh:{
-  home:{title:'通往未知世界的门',kicker:'WORLD MODELS FOR PHYSICAL INTELLIGENCE',lead:'在行动之前，先推演世界。',body:'我们相信，真正重要的智能，不只是看见世界，而是理解世界如何变化。勘境探索面向物理智能的世界模型，从观测、动作与反馈中学习空间、动态与可能未来。'},
+  home:{title:'理解世界如何变化。',kicker:'WORLD MODELS FOR PHYSICAL INTELLIGENCE',lead:'在行动之前，先推演世界。',body:'勘境探索面向物理智能的世界模型。从观测、动作与反馈中，研究空间、动态和可能的未来。'},
   research:{title:'理解世界，预测变化，再决定行动。',kicker:'研究 / RESEARCH',lead:'从观测到行动的研究路径',body:'世界模型尝试回答：采取某个动作之后，环境可能怎样变化？我们围绕表征、动作条件预测、未来推演、规划与评测开展研究。下方是研究路线示意，并不表示每一环节已经成熟。'},
   projects:{title:'项目与证据',kicker:'PROJECTS',lead:'每个项目都应说明来源、阶段和限制。',body:'第一方研究代码与上游开源适配分开展示。仓库、文档和已知限制共同构成可检查的起点；公开代码本身不代表已验证的模型性能。'},
   updates:{title:'研究与工程进展',kicker:'UPDATES',lead:'保留时间，也保留边界。',body:'这里记录有公开来源可核验的里程碑。更新文章由结构化内容维护，日期表示公开仓库中的记录时间。'},
@@ -15,7 +15,7 @@ export const content = {
   labels:{first:'第一方项目',adaptation:'开源适配 · 上游 Fork',status:'当前阶段',overview:'概览',problem:'研究问题',approach:'方法',architecture:'架构与范围',evidence:'可核验资料',limitations:'限制',next:'下一步',brand:'品牌解释',world:'什么是世界模型',route:'研究路线示意',selected:'精选项目',latest:'最近进展',proof:'证据先于宣传',principles:'研究原则',door:'未知不是终点，而是研究开始的地方。',mediaUse:'Logo 使用',social:'官方渠道',uncertain:'尚无可公开核验的商业产品或官方模型成绩。'},
  },
  en:{
-  home:{title:'A Door to the Unknown World',kicker:'WORLD MODELS FOR PHYSICAL INTELLIGENCE',lead:'Before action, model the world.',body:'Meaningful intelligence needs to understand more than what is visible now. KineWorld explores world models for physical intelligence, learning from observation, action and feedback to study space, dynamics and possible futures.'},
+  home:{title:'Understand how the world changes.',kicker:'WORLD MODELS FOR PHYSICAL INTELLIGENCE',lead:'Before action, model the world.',body:'KineWorld explores world models for physical intelligence. We study space, dynamics and possible futures through observation, action and feedback.'},
   research:{title:'Understand the world. Predict change. Then act.',kicker:'RESEARCH',lead:'A research path from observation to action',body:'A world model asks what might happen after an action. We study representations, action-conditioned prediction, future rollout, planning and evaluation. The sequence below describes a research direction, not a claim that every component is mature.'},
   projects:{title:'Projects and evidence',kicker:'PROJECTS',lead:'Origins, stage and limitations belong together.',body:'First-party research code is separated from adaptations of upstream work. Repositories, documentation and known limitations are the starting point for inspection; public code alone does not validate model performance.'},
   updates:{title:'Research and engineering updates',kicker:'UPDATES',lead:'Record progress with its boundaries.',body:'This section tracks milestones with inspectable public sources. Posts are maintained as structured content; dates correspond to public repository records.'},
