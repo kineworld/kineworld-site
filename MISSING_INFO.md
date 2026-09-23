@@ -1,14 +1,9 @@
-# Information to verify before production publication
+# Remaining company information
 
-The site intentionally omits these until a verified public source or approved company record is provided:
+The website and HTTPS are live. The ICP website service number, legal company name, cloud origin and DNS are verified and in use.
 
-- Public-security filing number, once approved. The exact website ICP filing number is verified and published.
-- Registered address and founding year. The legal company name is verified from the Tencent Cloud filing screenshot.
-- Company email and separate media contact email.
-- Official X, WeChat Official Account, Bilibili, Xiaohongshu and Douyin account URLs, display names and authorized QR codes.
-- Any founder personal accounts, only if the founder explicitly approves a separate personal section.
-- Team member names, biographies and permission to publish them.
-- Current Tencent Cloud hosting product and authenticated access to cloud resource `212.64.29.248`, CDN/EdgeOne configuration and HTTPS certificate management. Authoritative DNS is on Aliyun nameservers; no authorized DNS access is available locally.
-- Whether any analytics, third-party embeds or server log retention are enabled in production; update the privacy page before enabling them.
-
-The official GitHub organization is the only currently verified public contact channel shown. Missing channels have no placeholders or fake links on the site.
+- Public-security internet filing: the application has not been submitted or approved. It requires the responsible person's identity details and document images. Publish its number only after approval.
+- Company email and media contact email: no deliverable address has been verified. The public GitHub organization is the currently verified contact channel.
+- Registered address, founding year, team biographies and approved portraits: not verified for publication.
+- Other social accounts and QR codes: publish only after account ownership and branding are confirmed.
+- Any future analytics, embedded services or contact form: review privacy terms before enabling them.
