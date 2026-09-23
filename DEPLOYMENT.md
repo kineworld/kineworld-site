@@ -6,7 +6,7 @@ Node.js 22 or newer. Run `npm ci`, `python scripts/prepare_assets.py` only if th
 
 ## Current infrastructure boundary
 
-The repository's older `DEPLOY.md` and `SITE_REMEDIATION.md` describe an Aliyun OSS Hong Kong bucket. They are historical and must not be treated as the current Tencent Cloud deployment configuration. On 2026-09-23, a read-only DNS lookup did not return a usable apex A record and an HTTPS HEAD request failed TLS negotiation in this environment. The user reports Tencent Cloud ICP filing, but the filing number, active Tencent service, CDN, bucket and certificate have not been independently verified.
+The repository's older `DEPLOY.md` and `SITE_REMEDIATION.md` describe an Aliyun OSS Hong Kong bucket. They are historical and must not be treated as the current Tencent Cloud deployment configuration. On 2026-09-23, a read-only DNS lookup did not return a usable apex A record or `www` CNAME. Tencent Cloud's filing console screenshot supplied by the user shows `kineworld.com` with website service filing `皖ICP备2026032725号-1`, legal entity `合肥勘境智能科技有限公司`, and a cloud resource `212.64.29.248 (sh)`. TCP 22 responds on that resource; TCP 80 and 443 did not accept connections from this environment. No authenticated server access, Tencent Cloud API access, DNS access or certificate access is available locally.
 
 Do not sync this build to the old Aliyun bucket or change DNS based on the old documents. For Tencent Cloud, first identify whether the actual origin is COS, EdgeOne, Lighthouse, CVM or another service and confirm who manages DNS and certificates.
 
@@ -17,7 +17,7 @@ Do not sync this build to the old Aliyun bucket or change DNS based on the old d
 - Issue and renew a valid certificate for both hostnames before enabling HTTPS redirects.
 - Cache hashed `/_astro/*` assets for one year with `immutable`; cache HTML briefly or revalidate it. Cache `/assets/*` only after reviewing the update and invalidation policy because their filenames are stable.
 - Serve `sitemap.xml`, `robots.txt`, images and `favicon.png` with correct content types.
-- Add the exact verified ICP number to `src/data/company.ts` and rebuild before Mainland publication. Add a police record only if one actually exists.
+- The exact verified website service ICP number is already in `src/data/company.ts`, and the footer links it to MIIT. Add a police record only after it is approved and verified.
 - Upload a new version to a staging origin first. Test direct navigation and refresh for `/`, `/research/`, `/projects/kinejing/`, `/en/`, `/en/projects/kinejing/`, and `/404.html`, then verify assets and TLS.
 
 ## Rollback
