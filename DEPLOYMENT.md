@@ -1,31 +1,21 @@
-# Deployment: kineworld.com
+# Production deployment: kineworld.com
 
-## Build
+## Live state (2026-09-23)
 
-Node.js 22 or newer. Run `npm ci`, `python scripts/prepare_assets.py` only if the source images change, then `npm run check` and `npm run build`. Upload **only** `dist/` to a static hosting origin. The build creates directory routes such as `dist/research/index.html` and `dist/en/research/index.html`.
+The bilingual static site is live at `https://kineworld.com/` and `https://www.kineworld.com/`. The apex is the canonical hostname. Both names resolve through Aliyun DNS (`dns17.hichina.com` / `dns18.hichina.com`) to Tencent Cloud Lighthouse instance `lhins-f0sfoxuw`, public IP `212.64.29.248`, Shanghai, Ubuntu 24.04. The apex has an enabled A record and `www` has an enabled CNAME to the apex. Existing mail, SPF and verification DNS records were retained.
 
-## Current infrastructure boundary
+Nginx serves `/var/www/kineworld/current`, a symlink to a timestamped release under `/var/www/kineworld/releases/`. HTTP redirects to HTTPS. Let's Encrypt issued one certificate for both hostnames, expiring 2026-12-22; `certbot.timer` is enabled and a renewal dry run passed. Tencent Cloud's instance firewall allows TCP 80 and 443. The verified ICP website service number `皖ICP备2026032725号-1` is shown in the footer with a link to MIIT.
 
-The repository's older `DEPLOY.md` and `SITE_REMEDIATION.md` describe an Aliyun OSS Hong Kong bucket. They are historical and must not be treated as the current Tencent Cloud deployment configuration. On 2026-09-23, a read-only DNS lookup did not return a usable apex A record or `www` CNAME. Tencent Cloud's filing console screenshot supplied by the user shows `kineworld.com` with website service filing `皖ICP备2026032725号-1`, legal entity `合肥勘境智能科技有限公司`, and a cloud resource `212.64.29.248 (sh)`. TCP 22 responds on that resource; TCP 80 and 443 did not accept connections from this environment. No authenticated server access, Tencent Cloud API access, DNS access or certificate access is available locally.
+External checks returned HTTP 200 with valid TLS for both hostnames and for the home, English, research, project, about, contact, privacy, sitemap, robots and logo paths. The privacy page describes current Nginx access logs, which rotate daily with 14 retained rotations (`/etc/logrotate.d/nginx`). No analytics or contact form is enabled.
 
-Do not sync this build to the old Aliyun bucket or change DNS based on the old documents. For Tencent Cloud, first identify whether the actual origin is COS, EdgeOne, Lighthouse, CVM or another service and confirm who manages DNS and certificates.
+## Build and release
 
-## Static host requirements
+Use Node.js 22 or newer. Run `npm ci`, `npm run check`, then `npm run build`. If source images change, run `python scripts/prepare_assets.py` before the build. Package the contents of `dist/` and upload them to the instance. Unpack into a new timestamped directory in `/var/www/kineworld/releases/`, verify `index.html`, set ownership to `www-data`, then atomically change `/var/www/kineworld/current` to the new directory. Test `nginx -t` and reload Nginx. Preserve `/etc/nginx/sites-available/kineworld` because Certbot added HTTPS configuration there.
 
-- Serve `/` from `index.html` and `/research/` from `research/index.html`; apply the same rule to every nested route. Configure an explicit custom 404 response using `404.html` with HTTP 404 status.
-- Redirect either `www.kineworld.com` to `kineworld.com` or the reverse with one canonical HTTPS hostname. This build uses the apex in canonical and sitemap URLs.
-- Issue and renew a valid certificate for both hostnames before enabling HTTPS redirects.
-- Cache hashed `/_astro/*` assets for one year with `immutable`; cache HTML briefly or revalidate it. Cache `/assets/*` only after reviewing the update and invalidation policy because their filenames are stable.
-- Serve `sitemap.xml`, `robots.txt`, images and `favicon.png` with correct content types.
-- The exact verified website service ICP number is already in `src/data/company.ts`, and the footer links it to MIIT. Add a police record only after it is approved and verified.
-- Upload a new version to a staging origin first. Test direct navigation and refresh for `/`, `/research/`, `/projects/kinejing/`, `/en/`, `/en/projects/kinejing/`, and `/404.html`, then verify assets and TLS.
+To roll back, point `/var/www/kineworld/current` to the prior release and reload Nginx. Keep the certificate and firewall rules in place. Check the main pages, ICP footer, sitemap, both hostnames, HTTP redirect and certificate after each release. The `kineworld.github.io` site is an older interim copy; update or retire it deliberately rather than treating it as the production origin.
 
-## Rollback
+## Legal follow-up
 
-Keep the previous complete `dist/` release. With versioned object prefixes or a hosting release system, switch the origin back to the previous release. Purge HTML and stable asset paths after a rollback; avoid replacing individual files in place.
+The public-security internet filing has not been submitted or approved. The official filing form requests the responsible person's identity documents and contact details, so an authorized person must supply and verify them. Tencent Cloud's [filing guide](https://cloud.tencent.com/document/product/243/19142) says to submit within 30 days after opening the site. Add the public-security filing number and link to the footer only after approval. Company email and other official channels remain unpublished until verified.
 
-No `kineworld.com` DNS, hosting or certificate change is included in this delivery.
-
-## Public interim host
-
-With the user's later explicit request to publish, the site was deployed to `https://kineworld.github.io/` on 2026-09-23. GitHub Pages build `899bdb3` completed successfully. The home page, English home page, research page, project page, new image assets and `robots.txt` all returned HTTP 200. The deployed build used `PUBLIC_SITE_URL=https://kineworld.github.io` so canonical and sitemap URLs describe that host. The generated `.nojekyll` file is included. This interim host is separate from the requested `kineworld.com` production domain; the latter still requires verified DNS, TLS and filing details.
+The repository's older `DEPLOY.md` and `SITE_REMEDIATION.md` describe a former Aliyun OSS Hong Kong setup; they are historical records, not the current origin.
