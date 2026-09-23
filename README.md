@@ -1,24 +1,22 @@
-# KineWorld Public Site Archive
+# 勘境 KineWorld official site
 
-Public evidence pages and historical static-site material for [kineworld.com](https://kineworld.com).
+Astro static site for kineworld.com. `/` is Chinese; `/en/` is English. Each language has complete page routes and project/update details. The interface does not redirect based on browser language or location.
 
-> The live website is the authoritative public presentation. Some files in this repository preserve earlier experiments and naming for provenance; they are not evidence of current model capability.
+## Local development
 
-## Contents
+```bash
+npm ci
+npm run dev
+```
 
-- historical experiment and benchmark pages;
-- machine-readable result snapshots;
-- deployment and remediation notes;
-- public explanations of evidence boundaries.
+For release validation: `npm run check`, `npm run build`, `npm run preview`, then `node scripts/verify.mjs`. The browser verification script uses an installed local Chrome path on Windows; adjust the executable path for another machine. Source images are already committed; use `python scripts/prepare_assets.py` if they are replaced.
 
-The names `KineOne-WM`, `KINE-JEPA` and `KINE-EXP-001` refer to earlier prototypes or experiment identifiers. KineWorld's current company position is action-conditioned world-model research with evidence-bound claims; no public artifact currently proves a general world model, causal reasoning, third-party validation or model leadership.
+## Structure
 
-Current repositories:
+`src/data/` contains the editorial source; `src/pages/[...path].astro` generates bilingual routes; `src/layouts/Site.astro` contains global metadata, navigation and footer; `src/styles/site.css` contains the design system. `public/assets/` includes user-supplied originals and optimized derivatives. Older HTML files at repository root are historical material and are not included in the new static build.
 
-- [kine-jepa](https://github.com/kineworld/kine-jepa)
-- [kine-bench](https://github.com/kineworld/kine-bench)
-- [kine-datapipe](https://github.com/kineworld/kine-datapipe)
+Read [BRAND.md](BRAND.md), [CONTENT_GUIDE.md](CONTENT_GUIDE.md), [MISSING_INFO.md](MISSING_INFO.md) and [DEPLOYMENT.md](DEPLOYMENT.md) before publishing. No DNS or production hosting changes are part of this branch.
 
-## License
+## Evidence boundaries
 
-Site content and KineWorld-authored code are MIT licensed unless a file states otherwise. Third-party assets retain their original licenses.
+Project data links to public code and documentation. Forks are labeled as adaptations. The site does not claim a commercial product, official benchmark score, customer, funding, academic partnership or trained foundation model without supporting evidence.
