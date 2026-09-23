@@ -1,0 +1,56 @@
+---
+import { company } from '../data/company';
+import { navigation, localPath } from '../data/navigation';
+import { content } from '../data/content';
+import '../styles/site.css';
+interface Props { lang:'zh'|'en'; path:string; title:string; description:string; hero?:boolean }
+const {lang,path,title,description,hero=false}=Astro.props;
+const c=content[lang];
+const canonical=new URL(localPath(path,lang),company.domain).toString();
+const zhUrl=new URL(localPath(path,'zh'),company.domain).toString();
+const enUrl=new URL(localPath(path,'en'),company.domain).toString();
+const logo='/assets/logo-mark.png';
+---
+<!doctype html>
+<html lang={lang==='zh'?'zh-CN':'en'}>
+<head>
+ <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+ <meta name="theme-color" content="#05070b" />
+ <title>{title}</title><meta name="description" content={description} />
+ <link rel="canonical" href={canonical} />
+ <link rel="alternate" hreflang="zh-CN" href={zhUrl} /><link rel="alternate" hreflang="en" href={enUrl} /><link rel="alternate" hreflang="x-default" href={zhUrl} />
+ <meta property="og:type" content="website" /><meta property="og:site_name" content="KineWorld" /><meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} /><meta property="og:image" content={`${company.domain}/assets/og-cover.jpg`} />
+ <meta name="twitter:card" content="summary_large_image" />
+ <link rel="icon" href="/favicon.png" type="image/png" />
+ <noscript><style>@media(max-width:800px){.mobile-nav[hidden]{display:grid!important;grid-template-columns:repeat(2,1fr);padding:12px 20px 24px;background:#05070b}.mobile-nav a{padding:13px 6px;min-height:44px}.menu-toggle{display:none!important}}</style></noscript>
+ {hero && <link rel="preload" as="image" href="/assets/portal-hero.webp" />}
+</head>
+<body>
+ <a class="skip" href="#main">{lang==='zh'?'跳转至正文':'Skip to content'}</a>
+ <header class="site-header" id="site-header">
+  <div class="header-inner">
+   <a class="brand" href={localPath('/',lang)} aria-label={lang==='zh'?'勘境首页':'KineWorld home'}><img src={logo} alt="" width="40" height="40" /><span class="brand-text"><strong>勘境</strong><small>KINEWORLD</small></span></a>
+   <nav class="desktop-nav" aria-label={lang==='zh'?'主导航':'Main navigation'}>{navigation.map(n=><a href={localPath(n.path,lang)} aria-current={path===n.path?'page':undefined}>{lang==='zh'?n.zh:n.en}</a>)}</nav>
+   <div class="header-actions"><div class="language" aria-label={lang==='zh'?'语言':'Language'}><a href={localPath(path,'zh')} lang="zh-CN" aria-current={lang==='zh'?'page':undefined}>中文</a><span aria-hidden="true">/</span><a href={localPath(path,'en')} lang="en" aria-current={lang==='en'?'page':undefined}>EN</a></div><button class="menu-toggle" type="button" aria-controls="mobile-nav" aria-expanded="false" aria-label={lang==='zh'?'打开菜单':'Open menu'}><span></span><span></span></button></div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label={lang==='zh'?'移动导航':'Mobile navigation'} hidden>{navigation.map(n=><a href={localPath(n.path,lang)}>{lang==='zh'?n.zh:n.en}</a>)}</nav>
+ </header>
+ <main id="main"><slot /></main>
+ <footer class="site-footer"><div class="footer-top"><div><a class="brand" href={localPath('/',lang)}><img src={logo} alt="" width="40" height="40" /><span class="brand-text"><strong>勘境</strong><small>KINEWORLD</small></span></a><p>{lang==='zh'?'以世界模型，走向更真实的智能。':'World models toward more grounded intelligence.'}</p></div><nav aria-label={lang==='zh'?'页脚导航':'Footer navigation'}>{navigation.slice(1).map(n=><a href={localPath(n.path,lang)}>{lang==='zh'?n.zh:n.en}</a>)}<a href={localPath('/media/',lang)}>{c.navExtras.media}</a><a href={localPath('/faq/',lang)}>{c.navExtras.faq}</a></nav><div class="footer-side"><a href={company.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></div><div class="footer-bottom"><span>© {new Date().getFullYear()} KineWorld</span><div>{company.icp && <span>{company.icp}</span>}{company.policeRecord && <span>{company.policeRecord}</span>}<a href={localPath('/privacy/',lang)}>{c.navExtras.privacy}</a><a href={localPath('/terms/',lang)}>{c.navExtras.terms}</a></div></div></footer>
+ <script>
+  const btn=document.querySelector<HTMLButtonElement>('.menu-toggle');const menu=document.querySelector<HTMLElement>('#mobile-nav');
+  btn?.addEventListener('click',()=>{if(!menu)return;const open=btn.getAttribute('aria-expanded')==='true';btn.setAttribute('aria-expanded',String(!open));menu.hidden=open;});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&btn&&menu){btn.setAttribute('aria-expanded','false');menu.hidden=true;}});
+  const header=document.querySelector('#site-header');const onScroll=()=>header?.classList.toggle('scrolled',scrollY>32);onScroll();addEventListener('scroll',onScroll,{passive:true});
+  document.querySelectorAll('.language a').forEach(a=>a.addEventListener('click',()=>{try{localStorage.setItem('kineworld-language',(a as HTMLAnchorElement).lang==='en'?'en':'zh')}catch{}}));
+  const heroImage=document.querySelector<HTMLElement>('.hero-image');
+  if(heroImage && !matchMedia('(prefers-reduced-motion: reduce)').matches && matchMedia('(min-width: 801px)').matches){
+    let frame=0;let x=0;let y=0;
+    const paint=()=>{frame=0;heroImage.style.setProperty('--mx',`${x}px`);heroImage.style.setProperty('--my',`${y}px`);heroImage.style.setProperty('--scale',String(1.025+Math.min(scrollY/2000,.025)));};
+    const schedule=()=>{if(!frame && !document.hidden)frame=requestAnimationFrame(paint)};
+    addEventListener('pointermove',e=>{x=(e.clientX/innerWidth-.5)*18;y=(e.clientY/innerHeight-.5)*10;schedule()},{passive:true});
+    addEventListener('scroll',schedule,{passive:true});
+    document.addEventListener('visibilitychange',()=>{heroImage.style.animationPlayState=document.hidden?'paused':'running';schedule()});
+  }
+ </script>
+</body></html>
