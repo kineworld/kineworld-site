@@ -2,6 +2,7 @@
 import { company } from '../data/company';
 import { navigation, localPath } from '../data/navigation';
 import { content } from '../data/content';
+import SocialFooter from '../components/SocialFooter.astro';
 import '../styles/site.css';
 interface Props { lang:'zh'|'en'; path:string; title:string; description:string; hero?:boolean }
 const {lang,path,title,description}=Astro.props;
@@ -25,7 +26,7 @@ const logo='/assets/logo-depth.png';
  <noscript><style>@media(max-width:800px){.mobile-nav[hidden]{display:grid!important;grid-template-columns:repeat(2,1fr);padding:12px 20px 24px;background:#05070b}.mobile-nav a{padding:13px 6px;min-height:44px}.menu-toggle{display:none!important}}</style></noscript>
 </head>
 <body>
- <div class="world-field" aria-hidden="true"><div class="world-field-image"><div class="world-river"></div></div></div>
+ <div class="world-field" aria-hidden="true"><div class="world-field-image"><div class="world-river"></div><canvas class="world-river-canvas" width="1672" height="941"></canvas></div></div>
  <a class="skip" href="#main">{lang==='zh'?'跳转至正文':'Skip to content'}</a>
  <header class="site-header" id="site-header">
   <div class="header-inner">
@@ -36,9 +37,10 @@ const logo='/assets/logo-depth.png';
   <nav class="mobile-nav" id="mobile-nav" aria-label={lang==='zh'?'移动导航':'Mobile navigation'} hidden>{navigation.map(n=><a href={localPath(n.path,lang)}>{lang==='zh'?n.zh:n.en}</a>)}</nav>
  </header>
  <main id="main"><slot /></main>
- <footer class="site-footer"><div class="footer-top"><div><a class="brand" href={localPath('/',lang)}><span class="brand-emblem"><img src={logo} alt="" width="48" height="48" /></span><span class="brand-text"><strong>勘境</strong><small>KINEWORLD</small></span></a><p>{lang==='zh'?'以世界模型，走向更真实的智能。':'World models toward more grounded intelligence.'}</p></div><nav aria-label={lang==='zh'?'页脚导航':'Footer navigation'}>{navigation.slice(1).map(n=><a href={localPath(n.path,lang)}>{lang==='zh'?n.zh:n.en}</a>)}<a href={localPath('/media/',lang)}>{c.navExtras.media}</a><a href={localPath('/faq/',lang)}>{c.navExtras.faq}</a></nav><div class="footer-side"><a href={company.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></div><div class="footer-bottom"><span>© {new Date().getFullYear()} {company.legalName || 'KineWorld'}</span><div>{company.icp && <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">{company.icp}</a>}{company.policeRecord && <span>{company.policeRecord}</span>}<a href={localPath('/privacy/',lang)}>{c.navExtras.privacy}</a><a href={localPath('/terms/',lang)}>{c.navExtras.terms}</a></div></div></footer>
+ <footer class="site-footer"><div class="footer-top"><div><a class="brand" href={localPath('/',lang)}><span class="brand-emblem"><img src={logo} alt="" width="48" height="48" /></span><span class="brand-text"><strong>勘境</strong><small>KINEWORLD</small></span></a><p>{lang==='zh'?'以世界模型，走向更真实的智能。':'World models toward more grounded intelligence.'}</p></div><nav aria-label={lang==='zh'?'页脚导航':'Footer navigation'}>{navigation.slice(1).map(n=><a href={localPath(n.path,lang)}>{lang==='zh'?n.zh:n.en}</a>)}<a href={localPath('/media/',lang)}>{c.navExtras.media}</a><a href={localPath('/faq/',lang)}>{c.navExtras.faq}</a></nav><SocialFooter lang={lang} /></div><div class="footer-bottom"><span>© {new Date().getFullYear()} {company.legalName || 'KineWorld'}</span><div>{company.icp && <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">{company.icp}</a>}{company.policeRecord && <span>{company.policeRecord}</span>}<a href={localPath('/privacy/',lang)}>{c.navExtras.privacy}</a><a href={localPath('/terms/',lang)}>{c.navExtras.terms}</a></div></div></footer>
  <script>
   import '../scripts/reveal';
+  import '../scripts/river-flow';
   const btn=document.querySelector<HTMLButtonElement>('.menu-toggle');const menu=document.querySelector<HTMLElement>('#mobile-nav');
   btn?.addEventListener('click',()=>{if(!menu)return;const open=btn.getAttribute('aria-expanded')==='true';btn.setAttribute('aria-expanded',String(!open));menu.hidden=open;});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&btn&&menu){btn.setAttribute('aria-expanded','false');menu.hidden=true;}});
