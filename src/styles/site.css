@@ -96,6 +96,7 @@ html:lang(zh-CN) h1, html:lang(zh-CN) h2 {
   text-wrap: balance;
 }
 .title-phrase { display: inline-block; white-space: nowrap; }
+.lead-phrase { display: inline-block; white-space: nowrap; margin-right: .3em; }
 .hero h1 .title-phrase { display: block; }
 html:lang(zh-CN) .page-hero h1 { max-width: 1120px; }
 html:lang(zh-CN) .hero h1 { max-width: 620px; font-size: clamp(3.2rem,5.3vw,5.8rem); }
