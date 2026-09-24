@@ -9,7 +9,7 @@ const c=content[lang];
 const canonical=new URL(localPath(path,lang),company.domain).toString();
 const zhUrl=new URL(localPath(path,'zh'),company.domain).toString();
 const enUrl=new URL(localPath(path,'en'),company.domain).toString();
-const logo='/assets/logo-mark.png';
+const logo='/assets/logo-depth.png';
 ---
 <!doctype html>
 <html lang={lang==='zh'?'zh-CN':'en'}>
@@ -25,18 +25,18 @@ const logo='/assets/logo-mark.png';
  <noscript><style>@media(max-width:800px){.mobile-nav[hidden]{display:grid!important;grid-template-columns:repeat(2,1fr);padding:12px 20px 24px;background:#05070b}.mobile-nav a{padding:13px 6px;min-height:44px}.menu-toggle{display:none!important}}</style></noscript>
 </head>
 <body>
- <div class="world-field" aria-hidden="true"><div class="world-field-image"></div></div>
+ <div class="world-field" aria-hidden="true"><div class="world-field-image"><div class="world-river"></div></div></div>
  <a class="skip" href="#main">{lang==='zh'?'跳转至正文':'Skip to content'}</a>
  <header class="site-header" id="site-header">
   <div class="header-inner">
-   <a class="brand" href={localPath('/',lang)} aria-label={lang==='zh'?'勘境首页':'KineWorld home'}><img src={logo} alt="" width="40" height="40" /><span class="brand-text"><strong>勘境</strong><small>KINEWORLD</small></span></a>
+   <a class="brand" href={localPath('/',lang)} aria-label={lang==='zh'?'勘境首页':'KineWorld home'}><span class="brand-emblem"><img src={logo} alt="" width="48" height="48" /></span><span class="brand-text"><strong>勘境</strong><small>KINEWORLD</small></span></a>
    <nav class="desktop-nav" aria-label={lang==='zh'?'主导航':'Main navigation'}>{navigation.map(n=><a href={localPath(n.path,lang)} aria-current={path===n.path?'page':undefined}>{lang==='zh'?n.zh:n.en}</a>)}</nav>
    <div class="header-actions"><div class="language" aria-label={lang==='zh'?'语言':'Language'}><a href={localPath(path,'zh')} lang="zh-CN" aria-current={lang==='zh'?'page':undefined}>中文</a><span aria-hidden="true">/</span><a href={localPath(path,'en')} lang="en" aria-current={lang==='en'?'page':undefined}>EN</a></div><button class="menu-toggle" type="button" aria-controls="mobile-nav" aria-expanded="false" aria-label={lang==='zh'?'打开菜单':'Open menu'}><span></span><span></span></button></div>
   </div>
   <nav class="mobile-nav" id="mobile-nav" aria-label={lang==='zh'?'移动导航':'Mobile navigation'} hidden>{navigation.map(n=><a href={localPath(n.path,lang)}>{lang==='zh'?n.zh:n.en}</a>)}</nav>
  </header>
  <main id="main"><slot /></main>
- <footer class="site-footer"><div class="footer-top"><div><a class="brand" href={localPath('/',lang)}><img src={logo} alt="" width="40" height="40" /><span class="brand-text"><strong>勘境</strong><small>KINEWORLD</small></span></a><p>{lang==='zh'?'以世界模型，走向更真实的智能。':'World models toward more grounded intelligence.'}</p></div><nav aria-label={lang==='zh'?'页脚导航':'Footer navigation'}>{navigation.slice(1).map(n=><a href={localPath(n.path,lang)}>{lang==='zh'?n.zh:n.en}</a>)}<a href={localPath('/media/',lang)}>{c.navExtras.media}</a><a href={localPath('/faq/',lang)}>{c.navExtras.faq}</a></nav><div class="footer-side"><a href={company.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></div><div class="footer-bottom"><span>© {new Date().getFullYear()} {company.legalName || 'KineWorld'}</span><div>{company.icp && <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">{company.icp}</a>}{company.policeRecord && <span>{company.policeRecord}</span>}<a href={localPath('/privacy/',lang)}>{c.navExtras.privacy}</a><a href={localPath('/terms/',lang)}>{c.navExtras.terms}</a></div></div></footer>
+ <footer class="site-footer"><div class="footer-top"><div><a class="brand" href={localPath('/',lang)}><span class="brand-emblem"><img src={logo} alt="" width="48" height="48" /></span><span class="brand-text"><strong>勘境</strong><small>KINEWORLD</small></span></a><p>{lang==='zh'?'以世界模型，走向更真实的智能。':'World models toward more grounded intelligence.'}</p></div><nav aria-label={lang==='zh'?'页脚导航':'Footer navigation'}>{navigation.slice(1).map(n=><a href={localPath(n.path,lang)}>{lang==='zh'?n.zh:n.en}</a>)}<a href={localPath('/media/',lang)}>{c.navExtras.media}</a><a href={localPath('/faq/',lang)}>{c.navExtras.faq}</a></nav><div class="footer-side"><a href={company.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></div><div class="footer-bottom"><span>© {new Date().getFullYear()} {company.legalName || 'KineWorld'}</span><div>{company.icp && <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">{company.icp}</a>}{company.policeRecord && <span>{company.policeRecord}</span>}<a href={localPath('/privacy/',lang)}>{c.navExtras.privacy}</a><a href={localPath('/terms/',lang)}>{c.navExtras.terms}</a></div></div></footer>
  <script>
   import '../scripts/reveal';
   const btn=document.querySelector<HTMLButtonElement>('.menu-toggle');const menu=document.querySelector<HTMLElement>('#mobile-nav');
