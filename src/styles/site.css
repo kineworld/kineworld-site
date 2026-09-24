@@ -6,3 +6,47 @@
 
 .world-section{background:linear-gradient(90deg,#05070bf2,#05070bd6),url('/assets/world-action.webp') center/cover}.research-page-hero{background:linear-gradient(90deg,#05070bf3,#05070bba 55%,#05070b22),url('/assets/world-action.webp') center/cover}.projects-page-hero{background:linear-gradient(90deg,#05070bf3,#05070baf 55%,#05070b22),url('/assets/world-landscape.webp') center/cover}.about-page-hero{background:linear-gradient(90deg,#05070bf2,#05070bad 55%,#05070b44),url('/assets/portal-variant.webp') center/cover}
 @media(max-width:520px){html[lang="zh-CN"] .hero h1{font-size:clamp(2rem,9vw,2.7rem);white-space:nowrap}}
+
+/* Research-first home: a slender Song-inspired display face, with a readable UI face. */
+html:lang(zh-CN) h1,html:lang(zh-CN) h2{font-family:"FangSong","STFangsong","Noto Serif CJK SC","Source Han Serif SC","SimSun",serif;font-weight:400;letter-spacing:.025em}
+.hero{height:auto;min-height:min(800px,100svh);background:#07111d}
+.hero-image{background-image:url('/assets/world-action.webp');background-position:center center;animation:none;opacity:.84}
+.hero-shade{background:linear-gradient(90deg,#050b13 0%,rgba(5,11,19,.97) 23%,rgba(5,11,19,.74) 48%,rgba(5,11,19,.2) 75%),linear-gradient(0deg,#05070b 0%,transparent 35%)}
+.hero-content{width:min(760px,60vw);margin-left:clamp(24px,7vw,110px);padding:150px 0 135px}
+.hero h1{font-size:clamp(3.5rem,6vw,6.5rem);line-height:1.16;max-width:780px;text-shadow:none}
+.hero .eyebrow{color:#b8d4f5}
+.hero-lead{font-size:clamp(1.22rem,1.8vw,1.8rem);margin-top:32px}
+.hero-body{max-width:630px}
+.hero-bottom{left:clamp(24px,7vw,110px)}
+.thesis-section{padding-top:clamp(92px,10vw,140px);padding-bottom:clamp(92px,10vw,140px)}
+.thesis-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(40px,8vw,125px);align-items:start}
+.thesis-grid h2{font-size:clamp(2.6rem,4vw,4.8rem);max-width:720px}
+.thesis-grid .large-copy{margin-top:0}
+.world-section{background:#081320}
+.route-section{background:#0a1726}
+.closing{background:radial-gradient(ellipse at 75% 15%,#10305b 0%,#07111e 48%,#05070b 100%)}
+@media(max-width:800px){.hero{min-height:730px}.hero-image{background-position:60% center;opacity:.55}.hero-shade{background:linear-gradient(90deg,#050b13ee,#050b13b8),linear-gradient(0deg,#05070b,transparent 50%)}.hero-content{width:auto;margin:0;padding:170px 24px 125px}.hero h1{font-size:clamp(3rem,11vw,4.8rem)}.hero-bottom{left:24px;right:24px}.thesis-grid{grid-template-columns:1fr;gap:24px}}
+@media(max-width:800px){.hero-content{width:100%;min-width:0;margin:0}.hero h1{font-size:clamp(2.7rem,9vw,4rem);max-width:100%;overflow-wrap:anywhere;word-break:break-all}.hero-lead,.hero-body{overflow-wrap:anywhere}}
+@media(max-width:520px){html[lang="zh-CN"] .hero h1{white-space:normal;font-size:clamp(2.7rem,9vw,3.5rem)}}
+
+/* One continuous animated field links every section of the site. */
+@font-face{font-family:'Ma Shan Zheng';src:url('/fonts/MaShanZheng-site.woff2') format('woff2');font-style:normal;font-weight:400;font-display:swap}
+html{background:#050b14}
+body{background:transparent}
+.world-field{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:radial-gradient(ellipse 65% 80% at 83% 47%,#102e56 0%,#091a30 35%,#050b14 79%)}
+.world-field:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#050b14 0%,#050b14dc 22%,transparent 66%),linear-gradient(0deg,#050b14b8,transparent 23%,transparent 75%,#050b14a1)}
+.world-field canvas{display:block;width:100%;height:100%}
+main,.site-footer{position:relative;z-index:1}
+.hero,.section,.world-section,.route-section,.evidence-section,.closing,.site-footer,.page-hero,.about-page-hero{background:transparent}
+.hero-image,.hero-shade{display:none}
+.hero{min-height:min(830px,100svh)}
+.hero-content{padding-top:155px;padding-bottom:145px}
+.hero .eyebrow{color:#9bc5f4}
+html:lang(zh-CN) h1,html:lang(zh-CN) h2{font-family:'Ma Shan Zheng','FangSong',serif;font-weight:400;letter-spacing:.045em;line-height:1.25}
+html:lang(zh-CN) .hero h1{font-size:clamp(4rem,6.1vw,7rem);max-width:840px}
+html:lang(zh-CN) .thesis-grid h2{font-size:clamp(3.1rem,4.5vw,5rem)}
+.section{border-bottom:1px solid rgba(122,171,224,.14)}
+.project-card,.pillar,.contact-card{background:rgba(6,17,31,.7);backdrop-filter:blur(12px)}
+.site-footer{border-top:1px solid rgba(122,171,224,.2)}
+@media(max-width:800px){.world-field{background:radial-gradient(ellipse 130% 70% at 82% 35%,#0e2748,#050b14 70%)}.world-field:after{background:linear-gradient(90deg,#050b14bd,#050b1460),linear-gradient(0deg,#050b14a8,transparent 30%,#050b1480)}.hero{min-height:760px}.hero-content{padding-top:158px;padding-bottom:125px}html:lang(zh-CN) .hero h1{font-size:clamp(3.2rem,11vw,4.8rem);white-space:normal;line-height:1.25}html:lang(zh-CN) .thesis-grid h2{font-size:clamp(2.8rem,10vw,4rem)}}
+
