@@ -4,7 +4,7 @@ import { navigation, localPath } from '../data/navigation';
 import { content } from '../data/content';
 import '../styles/site.css';
 interface Props { lang:'zh'|'en'; path:string; title:string; description:string; hero?:boolean }
-const {lang,path,title,description,hero=false}=Astro.props;
+const {lang,path,title,description}=Astro.props;
 const c=content[lang];
 const canonical=new URL(localPath(path,lang),company.domain).toString();
 const zhUrl=new URL(localPath(path,'zh'),company.domain).toString();
@@ -23,9 +23,9 @@ const logo='/assets/logo-mark.png';
  <meta name="twitter:card" content="summary_large_image" />
  <link rel="icon" href="/favicon.png" type="image/png" />
  <noscript><style>@media(max-width:800px){.mobile-nav[hidden]{display:grid!important;grid-template-columns:repeat(2,1fr);padding:12px 20px 24px;background:#05070b}.mobile-nav a{padding:13px 6px;min-height:44px}.menu-toggle{display:none!important}}</style></noscript>
- {hero && <link rel="preload" as="image" href="/assets/world-spatial.webp" />}
 </head>
 <body>
+ <div class="world-field" aria-hidden="true"><canvas id="world-field-canvas"></canvas></div>
  <a class="skip" href="#main">{lang==='zh'?'跳转至正文':'Skip to content'}</a>
  <header class="site-header" id="site-header">
   <div class="header-inner">
@@ -38,19 +38,12 @@ const logo='/assets/logo-mark.png';
  <main id="main"><slot /></main>
  <footer class="site-footer"><div class="footer-top"><div><a class="brand" href={localPath('/',lang)}><img src={logo} alt="" width="40" height="40" /><span class="brand-text"><strong>勘境</strong><small>KINEWORLD</small></span></a><p>{lang==='zh'?'以世界模型，走向更真实的智能。':'World models toward more grounded intelligence.'}</p></div><nav aria-label={lang==='zh'?'页脚导航':'Footer navigation'}>{navigation.slice(1).map(n=><a href={localPath(n.path,lang)}>{lang==='zh'?n.zh:n.en}</a>)}<a href={localPath('/media/',lang)}>{c.navExtras.media}</a><a href={localPath('/faq/',lang)}>{c.navExtras.faq}</a></nav><div class="footer-side"><a href={company.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></div><div class="footer-bottom"><span>© {new Date().getFullYear()} {company.legalName || 'KineWorld'}</span><div>{company.icp && <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">{company.icp}</a>}{company.policeRecord && <span>{company.policeRecord}</span>}<a href={localPath('/privacy/',lang)}>{c.navExtras.privacy}</a><a href={localPath('/terms/',lang)}>{c.navExtras.terms}</a></div></div></footer>
  <script>
+  import '../scripts/world-field';
+  import '../scripts/reveal';
   const btn=document.querySelector<HTMLButtonElement>('.menu-toggle');const menu=document.querySelector<HTMLElement>('#mobile-nav');
   btn?.addEventListener('click',()=>{if(!menu)return;const open=btn.getAttribute('aria-expanded')==='true';btn.setAttribute('aria-expanded',String(!open));menu.hidden=open;});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&btn&&menu){btn.setAttribute('aria-expanded','false');menu.hidden=true;}});
   const header=document.querySelector('#site-header');const onScroll=()=>header?.classList.toggle('scrolled',scrollY>32);onScroll();addEventListener('scroll',onScroll,{passive:true});
   document.querySelectorAll('.language a').forEach(a=>a.addEventListener('click',()=>{try{localStorage.setItem('kineworld-language',(a as HTMLAnchorElement).lang==='en'?'en':'zh')}catch{}}));
-  const heroImage=document.querySelector<HTMLElement>('.hero-image');
-  if(heroImage && !matchMedia('(prefers-reduced-motion: reduce)').matches && matchMedia('(min-width: 801px)').matches){
-    let frame=0;let x=0;let y=0;
-    const paint=()=>{frame=0;heroImage.style.setProperty('--mx',`${x}px`);heroImage.style.setProperty('--my',`${y}px`);heroImage.style.setProperty('--scale',String(1.025+Math.min(scrollY/2000,.025)));};
-    const schedule=()=>{if(!frame && !document.hidden)frame=requestAnimationFrame(paint)};
-    addEventListener('pointermove',e=>{x=(e.clientX/innerWidth-.5)*18;y=(e.clientY/innerHeight-.5)*10;schedule()},{passive:true});
-    addEventListener('scroll',schedule,{passive:true});
-    document.addEventListener('visibilitychange',()=>{heroImage.style.animationPlayState=document.hidden?'paused':'running';schedule()});
-  }
  </script>
 </body></html>
