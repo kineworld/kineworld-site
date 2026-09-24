@@ -25,7 +25,7 @@ const logo='/assets/logo-mark.png';
  <noscript><style>@media(max-width:800px){.mobile-nav[hidden]{display:grid!important;grid-template-columns:repeat(2,1fr);padding:12px 20px 24px;background:#05070b}.mobile-nav a{padding:13px 6px;min-height:44px}.menu-toggle{display:none!important}}</style></noscript>
 </head>
 <body>
- <div class="world-field" aria-hidden="true"><canvas id="world-field-canvas"></canvas></div>
+ <div class="world-field" aria-hidden="true"><div class="world-field-image"></div></div>
  <a class="skip" href="#main">{lang==='zh'?'跳转至正文':'Skip to content'}</a>
  <header class="site-header" id="site-header">
   <div class="header-inner">
@@ -38,7 +38,6 @@ const logo='/assets/logo-mark.png';
  <main id="main"><slot /></main>
  <footer class="site-footer"><div class="footer-top"><div><a class="brand" href={localPath('/',lang)}><img src={logo} alt="" width="40" height="40" /><span class="brand-text"><strong>勘境</strong><small>KINEWORLD</small></span></a><p>{lang==='zh'?'以世界模型，走向更真实的智能。':'World models toward more grounded intelligence.'}</p></div><nav aria-label={lang==='zh'?'页脚导航':'Footer navigation'}>{navigation.slice(1).map(n=><a href={localPath(n.path,lang)}>{lang==='zh'?n.zh:n.en}</a>)}<a href={localPath('/media/',lang)}>{c.navExtras.media}</a><a href={localPath('/faq/',lang)}>{c.navExtras.faq}</a></nav><div class="footer-side"><a href={company.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></div><div class="footer-bottom"><span>© {new Date().getFullYear()} {company.legalName || 'KineWorld'}</span><div>{company.icp && <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">{company.icp}</a>}{company.policeRecord && <span>{company.policeRecord}</span>}<a href={localPath('/privacy/',lang)}>{c.navExtras.privacy}</a><a href={localPath('/terms/',lang)}>{c.navExtras.terms}</a></div></div></footer>
  <script>
-  import '../scripts/world-field';
   import '../scripts/reveal';
   const btn=document.querySelector<HTMLButtonElement>('.menu-toggle');const menu=document.querySelector<HTMLElement>('#mobile-nav');
   btn?.addEventListener('click',()=>{if(!menu)return;const open=btn.getAttribute('aria-expanded')==='true';btn.setAttribute('aria-expanded',String(!open));menu.hidden=open;});
