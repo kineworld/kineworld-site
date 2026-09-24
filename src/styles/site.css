@@ -28,7 +28,7 @@ body { background: transparent; }
 .world-field-image {
   position: absolute;
   inset: -7% 0;
-  background: url("/assets/world-horizon-v2.webp") 58% center / cover no-repeat;
+  background: url("/assets/world-threshold-v3.webp") 56% center / cover no-repeat;
   will-change: transform;
 }
 .world-field::after {
@@ -44,8 +44,8 @@ main, .site-footer { position: relative; z-index: 1; }
 .closing, .site-footer, .page-hero, .about-page-hero { background: transparent; }
 .hero-image, .hero-shade { display: none; }
 .hero { height: auto; min-height: min(860px, 100svh); }
-.hero-content { width: min(770px, 58vw); margin-left: clamp(24px,7vw,110px); padding: 145px 0 145px; }
-.hero h1 { max-width: 780px; text-shadow: 0 2px 25px #0008; }
+.hero-content { width: min(630px, 50vw); margin-left: clamp(24px,7vw,110px); padding: 145px 0 145px; }
+.hero h1 { max-width: 520px; text-shadow: 0 2px 25px #0008; }
 .hero .eyebrow { color: #bfd8f5; }
 .hero-lead { font-size: clamp(1.22rem,1.8vw,1.85rem); }
 .hero-body { max-width: 620px; }
@@ -54,6 +54,18 @@ main, .site-footer { position: relative; z-index: 1; }
 .thesis-grid { display: grid; grid-template-columns: 1.08fr .92fr; gap: clamp(40px,8vw,125px); align-items: start; }
 .thesis-grid h2 { max-width: 720px; }
 .thesis-grid .large-copy { margin-top: 0; }
+.origin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(48px,9vw,140px); align-items: start; }
+.origin-grid h2 { max-width: 640px; }
+.origin-grid .large-copy { max-width: 640px; }
+.origin-words { border-top: 1px solid rgba(170,201,237,.3); }
+.origin-words p { display: grid; grid-template-columns: 86px 1fr; gap: 18px; align-items: center; margin: 0; padding: 28px 0; border-bottom: 1px solid rgba(170,201,237,.18); }
+.origin-words p span { color: #dceaff; font-family: "Kine Script Light","FangSong",serif; font-size: 3.8rem; line-height: 1; }
+.future-section .large-copy { max-width: 780px; }
+.future-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: clamp(20px,3vw,48px); margin: 64px 0 30px; }
+.future-grid article { min-height: 260px; padding: 26px 0 0; border-top: 1px solid rgba(170,201,237,.35); }
+.future-grid article span { color: #8fbceb; font-size: 11px; letter-spacing: .17em; }
+.future-grid h3 { margin: 38px 0 16px; font-size: clamp(1.25rem,1.7vw,1.7rem); letter-spacing: -.02em; }
+.future-grid p { max-width: 340px; }
 .section { border-bottom: 1px solid rgba(155,190,227,.14); }
 .project-card, .pillar, .contact-card { background: rgba(5,13,25,.77); backdrop-filter: blur(10px); }
 .site-footer { border-top: 1px solid rgba(155,190,227,.17); }
@@ -66,7 +78,7 @@ html:lang(zh-CN) h1, html:lang(zh-CN) h2 {
 html:lang(zh-CN) .hero h1 { font-size: clamp(3.9rem,6vw,6.75rem); }
 html:lang(zh-CN) .thesis-grid h2 { font-size: clamp(3rem,4.25vw,4.8rem); }
 @media (max-width: 800px) {
-  .world-field-image { inset: -5% -30%; background-position: 65% center; }
+  .world-field-image { inset: -5% 0; background-position: 42% center; }
   .world-field::after {
     background: linear-gradient(90deg,rgba(5,10,18,.95),rgba(5,10,18,.5)),
       linear-gradient(0deg,rgba(5,10,18,.75),transparent 45%,rgba(5,10,18,.42));
@@ -77,6 +89,12 @@ html:lang(zh-CN) .thesis-grid h2 { font-size: clamp(3rem,4.25vw,4.8rem); }
   html:lang(zh-CN) .hero h1 { font-size: clamp(3.05rem,10.5vw,4.45rem); white-space: normal; }
   html:lang(zh-CN) .thesis-grid h2 { font-size: clamp(2.65rem,9vw,3.8rem); }
   .thesis-grid { grid-template-columns: 1fr; gap: 24px; }
+  .origin-grid, .future-grid { grid-template-columns: 1fr; gap: 34px; }
+  .origin-words p { grid-template-columns: 66px 1fr; }
+  .origin-words p span { font-size: 3rem; }
+  .future-grid { margin-top: 36px; }
+  .future-grid article { min-height: auto; padding-top: 22px; }
+  .future-grid h3 { margin: 20px 0 10px; }
   .hero-bottom { left: 24px; right: 24px; }
 }
 @media (prefers-reduced-motion: reduce) {
