@@ -1,0 +1,37 @@
+---
+import { socials, socialNames } from '../data/socials';
+interface Props { lang: 'zh' | 'en' }
+const { lang } = Astro.props;
+const bilibili = socials.find(item => item.key === 'bilibili')!;
+const douyin = socials.find(item => item.key === 'douyin')!;
+---
+<section class="section social-section">
+  <p class="section-index">03 / SOCIAL CHANNELS</p>
+  <h2>{lang === 'zh' ? '在这些地方找到勘境' : 'Find KineWorld here'}</h2>
+  <p>{lang === 'zh' ? '以下账号名称和号码依据勘境提供的主页截图核对。' : 'Account names and IDs were checked against profile screenshots supplied by KineWorld.'}</p>
+  <div class="social-grid">
+    <article class="social-card">
+      <span>WECHAT / {lang === 'zh' ? '公众号' : 'Official Account'}</span>
+      <h3>{socialNames.wechat}</h3>
+      <p>{lang === 'zh' ? '微信内搜索“勘境智能”。主页显示认证主体：合肥勘境智能科技有限公司。' : 'Search “勘境智能” inside WeChat. The profile shows Hefei KineWorld Intelligent Technology Co., Ltd. as its verified operator.'}</p>
+      <small>{lang === 'zh' ? '微信内搜索' : 'Search in WeChat'}</small>
+    </article>
+    <article class="social-card">
+      <span>BILIBILI / B站</span>
+      <h3>{bilibili.account}</h3>
+      <p>UID {bilibili.id}</p>
+      <a href={bilibili.url} target="_blank" rel="noopener noreferrer">{lang === 'zh' ? '打开 B站主页' : 'Open Bilibili profile'} ↗</a>
+    </article>
+    <article class="social-card">
+      <span>DOUYIN / {lang === 'zh' ? '抖音' : 'Douyin'}</span>
+      <h3>{douyin.account}</h3>
+      <p>{lang === 'zh' ? '抖音号' : 'Douyin ID'} {douyin.id}</p>
+      <a href={douyin.url} target="_blank" rel="noopener noreferrer">{lang === 'zh' ? '按抖音号搜索' : 'Search this ID on Douyin'} ↗</a>
+    </article>
+    <article class="social-card pending">
+      <span>XIAOHONGSHU / {lang === 'zh' ? '小红书' : 'Xiaohongshu'}</span>
+      <h3>{lang === 'zh' ? '主页待核验' : 'Profile pending'}</h3>
+      <p>{lang === 'zh' ? '尚未取得可确认归属的主页链接，核验后会添加直达入口。' : 'A direct profile link will be added after its ownership is verified.'}</p>
+    </article>
+  </div>
+</section>

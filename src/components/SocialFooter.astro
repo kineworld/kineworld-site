@@ -1,0 +1,15 @@
+---
+import { socials, socialNames } from '../data/socials';
+interface Props { lang: 'zh' | 'en' }
+const { lang } = Astro.props;
+const bilibili = socials.find(item => item.key === 'bilibili')!;
+const douyin = socials.find(item => item.key === 'douyin')!;
+---
+<aside class="footer-side footer-social" aria-label={lang === 'zh' ? '勘境的公开渠道' : 'KineWorld channels'}>
+  <strong>{lang === 'zh' ? '关注勘境' : 'Follow KineWorld'}</strong>
+  <a href={socials[0].url} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+  <a href={bilibili.url} target="_blank" rel="noopener noreferrer">B站 / Bilibili ↗</a>
+  <span>{lang === 'zh' ? `公众号：微信搜索“${socialNames.wechat}”` : `WeChat: search “${socialNames.wechat}”`}</span>
+  <a href={douyin.url} target="_blank" rel="noopener noreferrer">{lang === 'zh' ? `抖音号 ${douyin.id}（搜索）` : `Douyin ID ${douyin.id} (search)`} ↗</a>
+  <span>{lang === 'zh' ? '小红书：主页链接待核验' : 'Xiaohongshu: profile link pending verification'}</span>
+</aside>
