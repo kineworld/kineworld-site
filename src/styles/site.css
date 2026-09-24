@@ -7,14 +7,7 @@
 .world-section{background:linear-gradient(90deg,#05070bf2,#05070bd6),url('/assets/world-action.webp') center/cover}.research-page-hero{background:linear-gradient(90deg,#05070bf3,#05070bba 55%,#05070b22),url('/assets/world-action.webp') center/cover}.projects-page-hero{background:linear-gradient(90deg,#05070bf3,#05070baf 55%,#05070b22),url('/assets/world-landscape.webp') center/cover}.about-page-hero{background:linear-gradient(90deg,#05070bf2,#05070bad 55%,#05070b44),url('/assets/portal-variant.webp') center/cover}
 @media(max-width:520px){html[lang="zh-CN"] .hero h1{font-size:clamp(2rem,9vw,2.7rem);white-space:nowrap}}
 
-/* KineWorld: one restrained physical world and a fine calligraphic title. */
-@font-face {
-  font-family: "Kine Script Light";
-  src: url("/fonts/KineScriptLight.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-}
+/* Simple system typography; sentence breaks are controlled at phrase boundaries. */
 html { background: #050a12; }
 body { background: transparent; }
 .world-field {
@@ -31,6 +24,30 @@ body { background: transparent; }
   background: url("/assets/world-threshold-v3.webp") 56% center / cover no-repeat;
   will-change: transform;
 }
+.world-river {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .88;
+  mix-blend-mode: screen;
+  background: repeating-linear-gradient(106deg,
+    transparent 0 11%, rgba(198,232,255,.24) 12%, rgba(215,241,255,.72) 13%,
+    transparent 15% 27%);
+  background-size: 180% 100%;
+  -webkit-mask: url('/assets/river-mask.webp') 56% center / cover no-repeat;
+  mask: url('/assets/river-mask.webp') 56% center / cover no-repeat;
+  animation: river-drift 11s linear infinite;
+}
+.world-river::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(115deg,
+    transparent 0 17%, rgba(211,241,255,.42) 18%, transparent 19% 31%);
+  background-size: 260% 100%;
+  animation: river-drift 19s linear infinite reverse;
+}
+@keyframes river-drift { from { background-position: 100% 0; } to { background-position: -100% 0; } }
 .world-field::after {
   content: "";
   position: absolute;
@@ -59,7 +76,7 @@ main, .site-footer { position: relative; z-index: 1; }
 .origin-grid .large-copy { max-width: 640px; }
 .origin-words { border-top: 1px solid rgba(170,201,237,.3); }
 .origin-words p { display: grid; grid-template-columns: 86px 1fr; gap: 18px; align-items: center; margin: 0; padding: 28px 0; border-bottom: 1px solid rgba(170,201,237,.18); }
-.origin-words p span { color: #dceaff; font-family: "Kine Script Light","FangSong",serif; font-size: 3.8rem; line-height: 1; }
+.origin-words p span { color: #dceaff; font-size: 3.8rem; font-weight: 300; line-height: 1; }
 .future-section .large-copy { max-width: 780px; }
 .future-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: clamp(20px,3vw,48px); margin: 64px 0 30px; }
 .future-grid article { min-height: 260px; padding: 26px 0 0; border-top: 1px solid rgba(170,201,237,.35); }
@@ -70,14 +87,32 @@ main, .site-footer { position: relative; z-index: 1; }
 .project-card, .pillar, .contact-card { background: rgba(5,13,25,.77); backdrop-filter: blur(10px); }
 .site-footer { border-top: 1px solid rgba(155,190,227,.17); }
 html:lang(zh-CN) h1, html:lang(zh-CN) h2 {
-  font-family: "Kine Script Light", "FangSong", "STFangsong", serif;
-  font-weight: 300;
-  letter-spacing: .045em;
-  line-height: 1.28;
+  font-family: Inter,Geist,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+  font-weight: 600;
+  letter-spacing: -.035em;
+  line-height: 1.22;
+  color: #f0f5fa;
+  text-shadow: none;
+  text-wrap: balance;
 }
-html:lang(zh-CN) .hero h1 { font-size: clamp(3.9rem,6vw,6.75rem); }
-html:lang(zh-CN) .thesis-grid h2 { font-size: clamp(3rem,4.25vw,4.8rem); }
+.title-phrase { display: inline-block; white-space: nowrap; }
+.hero h1 .title-phrase { display: block; }
+html:lang(zh-CN) .page-hero h1 { max-width: 1120px; }
+html:lang(zh-CN) .hero h1 { max-width: 620px; font-size: clamp(3.2rem,5.3vw,5.8rem); }
+body { font-family: Inter,Geist,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif; }
+.brand-emblem { position: relative; display: block; width: 48px; height: 48px; flex: none; isolation: isolate; }
+.brand-emblem::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: url('/assets/logo-depth.png') center / contain no-repeat;
+  transform: translate(3px,4px); filter: brightness(.26) saturate(1.8) blur(.4px);
+}
+.brand-emblem img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 1px 1px #8bc7ff88) drop-shadow(0 5px 9px #005be299); }
+.brand:hover .brand-emblem { transform: perspective(180px) rotateY(-9deg) rotateX(5deg); }
+.brand-emblem { transition: transform .35s ease; }
+.brand-visual img { filter: drop-shadow(5px 9px 0 #0b316e66) drop-shadow(18px 25px 24px #0b387a66); }
+html:lang(zh-CN) .thesis-grid h2 { font-size: clamp(2.6rem,3.8vw,4.4rem); }
 @media (max-width: 800px) {
+  .brand-emblem { width: 41px; height: 41px; }
   .world-field-image { inset: -5% 0; background-position: 42% center; }
   .world-field::after {
     background: linear-gradient(90deg,rgba(5,10,18,.95),rgba(5,10,18,.5)),
@@ -86,8 +121,10 @@ html:lang(zh-CN) .thesis-grid h2 { font-size: clamp(3rem,4.25vw,4.8rem); }
   .hero { min-height: 760px; }
   .hero-content { box-sizing: border-box; width: 100%; min-width: 0; margin: 0; padding: 160px 24px 125px; }
   .hero h1 { max-width: 100%; overflow-wrap: anywhere; word-break: break-all; }
-  html:lang(zh-CN) .hero h1 { font-size: clamp(3.05rem,10.5vw,4.45rem); white-space: normal; }
+  html:lang(zh-CN) .hero h1 { font-size: clamp(2.4rem,9vw,3.6rem); white-space: normal; }
   html:lang(zh-CN) .thesis-grid h2 { font-size: clamp(2.65rem,9vw,3.8rem); }
+  html:lang(zh-CN) .page-hero h1 { font-size: clamp(2.2rem,8vw,3.6rem); }
+  html:lang(zh-CN) .closing h2 { font-size: clamp(2rem,7.8vw,3.3rem); }
   .thesis-grid { grid-template-columns: 1fr; gap: 24px; }
   .origin-grid, .future-grid { grid-template-columns: 1fr; gap: 34px; }
   .origin-words p { grid-template-columns: 66px 1fr; }
@@ -99,4 +136,7 @@ html:lang(zh-CN) .thesis-grid h2 { font-size: clamp(3rem,4.25vw,4.8rem); }
 }
 @media (prefers-reduced-motion: reduce) {
   .world-field-image { will-change: auto; }
+  .world-river, .world-river::after { animation: none; }
+  .world-river { opacity: .15; }
+  .brand-emblem { transition: none; }
 }
